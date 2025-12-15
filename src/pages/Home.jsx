@@ -17,8 +17,6 @@ import Card from "../components/Card";
  *  make it professional and go to Canva and find a logo
  * click an item and show details on it like the book like rating, title,summary or price
  *
- *
- *
  */
 
 const Home = () => {
@@ -80,29 +78,7 @@ const Home = () => {
     );
     setSortedMovies(sortedList);
 
-    //  if (sortOption === "newest") {
-    //     sortedMovies.sort((a, z) => parseInt(z.Year) - parseInt(a.Year));
-    //   } else if (sortOption === "oldest") {
-    //     sortedMovies.sort((a, z) => parseInt(a.Year) - parseInt(z.Year));
-    //   }
-
-    // function sortChange(ev) {
-    //   //gets the option on display
-    //   const sortOption = ev.target.value;
-    //   console.log(sortOption);
-
-    //   //this creates a copy of array and using spreading will generate a copy
-    //   sortedMovies = [...currentMovies];
-
-    //   if (sortOption === "newest") {
-    //     sortedMovies.sort((a, z) => parseInt(z.Year) - parseInt(a.Year));
-    //   } else if (sortOption === "oldest") {
-    //     sortedMovies.sort((a, z) => parseInt(a.Year) - parseInt(z.Year));
-    //   }
-
-    //   displayMovies(sortedMovies);
-    //   returnSorted(sortedMovies);
-    // }
+  
   }
 
   useEffect(() => {
@@ -237,112 +213,3 @@ const Home = () => {
 };
 
 export default Home;
-
-
-
-// //get slider element by its ID
-// const sliderOne = document.querySelector("#slider-1");
-// const sliderTwo = document.querySelector("#slider-2");
-
-// //get range values by ID
-// let displayValOne = document.querySelector("#range1");
-// let displayValTwo = document.querySelector("#range2");
-// let miniGap = 10;
-
-// let sliderTrack = document.querySelector(".slider-track");
-
-// let sliderMaxValue = document.querySelector("#slider-1").max;
-// let sliderMinValue = document.querySelector("#slider-1").min;
-
-// function slideOne() {
-
-//   if (sortedMovies.length !== 0) {
-//     console.log("---sorted array curent", sortedMovies);
-//     filterRange(sortedMovies);
-
-//   } else if (currentMovies.length !== 0) {
-//     console.log("---current array curent", currentMovies);
-//     filterRange(currentMovies);
-//   } else {
-//     console.log("We have nothing");
-//   }
-//   //Logs Slider Two value minus minus Slider One value
-//   //console.log('SlideOne Minus slider 2 from slider 1', parseInt(sliderTwo.value) - parseInt(sliderOne.value));
-//   if (parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= miniGap) {
-//     sliderOne.value = parseInt(sliderTwo.value) - miniGap;
-//   }
-
-//   console.log(sliderOne.value);
-//   displayValOne.textContent = sliderOne.value;
-//   console.log(displayValOne.textContent);
-//   fillColor();
-
-// }
-// function slideTwo() {
-
-//   if (sortedMovies.length !== 0) {
-//     console.log("---sorted array curent", sortedMovies);
-//     filterRange(sortedMovies);
-
-//   } else if (currentMovies.length !== 0) {
-//     console.log("---current array curent", currentMovies);
-//     filterRange(currentMovies);
-//   } else {
-//     console.log("We have nothing");
-//   }
-
-//   //Logs Slider Two value minus minus Slider One value
-//   //console.log('convert to int using parseInt() then SlideTwo Minus slider 2 from slider 1', parseInt(sliderTwo.value) - parseInt(sliderOne.value));
-//   if (parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= miniGap) {
-//     sliderTwo.value = parseInt(sliderOne.value) + miniGap;
-//   }
-
-//   displayValTwo.textContent = sliderTwo.value;
-
-//   fillColor();
-// }
-
-// // this will calculate the current range and fill based on where it is
-// // fills the color gray for areas not part of the range
-// // this will work anything between 0 to current thumb for slider1
-// // and fills the range between two numbers in purple
-// // this will work anything between current to max value thumb for slider2
-// function fillColor() {
-//   // setting the minimum year for the 0%
-//   //(currentValue - minimumValue) / (maxValue - minValue)) * 100;
-//   //this takes the result of the amount between current and minimum
-//   //then takes the result of total range of value from max and minimum
-//   //then divide current result from total range of values and multiply it by 100
-//   //if minimum is 1900 like below, then it will be calculated to 0
-//   percent1 =
-//     ((sliderOne.value - sliderMinValue) / (sliderMaxValue - sliderMinValue)) *
-//     100;
-//   percent2 =
-//     ((sliderTwo.value - sliderMinValue) / (sliderMaxValue - sliderMinValue)) *
-//     100;
-//   console.log("PERCENT -", percent1, percent2);
-//   sliderTrack.style.background = `linear-gradient(
-//     to right, #dadae5 ${percent1}%, rgb(96, 52, 177) 
-//     ${percent1}%,  rgb(96, 52, 177) ${percent2}%, 
-//     #dada ${percent2}%
-//     )`;
-//   console.log(percent1, percent2);
-//   console.log(sliderTrack.style.background);
-// }
-
-
-// function filterRange(movieslist){
-//   //gets the current Min/MaxYear and set them by int value
-//   const currentMinYear = parseInt(sliderOne.value);
-//   const currentMaxYear = parseInt(sliderTwo.value);
-
-//      // Filter movies based on the year range
-//     const filteredMovies = movieslist.filter(movie => {
-//         //year sotre the current array movie years as an Int variable
-//         const year = parseInt(movie.Year);
-//         //returns the year if it is greater or equal to MinYear set and less or equal than MaxYear set
-//         return (year >= currentMinYear && year <= currentMaxYear);
-//     });
-//     //displays the movies after filter
-//     displayMovies(filteredMovies);
-// }

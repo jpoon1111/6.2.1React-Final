@@ -15,23 +15,28 @@ const navigate = useNavigate();
   
 
   useEffect(()=>{
+  
     console.log(keyword)
   }, [keyword])
 
 
-function searchChangeLanding(evparam) {
+async function searchChangeLanding(evparam) {
+  evparam.preventDefault();
     const valueHolder = evparam.target.value
     console.log(valueHolder)
-    setKeyword(valueHolder)
     
-    //(evparam.key === "Enter")? navigate(`/home/${keyword}`) : navigate(`/`)
+    
+    (evparam.key === "Enter" && navigate(`/home/${valueHolder}`)) 
+    setKeyword(valueHolder)
   }
 
   return (
     <div>
-        <header>
+      <header>
         <Navbar landing />
-    <Search landing keyword={keyword} searchChangeLanding={searchChangeLanding} />
+ 
+        <Search landing keyword={keyword} searchChangeLanding={searchChangeLanding} />    
+
       </header>
       <div className='building__wrapper'>
 
