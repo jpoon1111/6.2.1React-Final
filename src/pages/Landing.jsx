@@ -20,13 +20,14 @@ const navigate = useNavigate();
   }, [keyword])
 
 
-async function searchChangeLanding(evparam) {
-  evparam.preventDefault();
-    const valueHolder = evparam.target.value
-    console.log(valueHolder)
+function searchChangeLanding(evparam) {
+  
+  const valueHolder = evparam.target.value
+  console.log(valueHolder)
+
     
+  //   //(evparam.key === "Enter") ? navigate(`/home/${valueHolder}`) : navigate(`/}`) 
     
-    (evparam.key === "Enter" && navigate(`/home/${valueHolder}`)) 
     setKeyword(valueHolder)
   }
 

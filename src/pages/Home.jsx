@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import Search from "../components/Search";
@@ -21,10 +21,11 @@ import Card from "../components/Card";
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
-  // const navigate = useNavigate();
+   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [keyword, setKeyword] = useState("");
   const [sortedMovies, setSortedMovies] = useState([]);
+
   
 
   
@@ -57,10 +58,14 @@ const Home = () => {
   };
 
   function searchChange(evparam) {
+    console.log('Search Change', evparam.target.value)
+
     setKeyword(evparam.target.value);
 
     setLoading(true);
+
     getMovies(evparam.target.value);
+    navigate(`/home/${evparam.target.value}`)
   }
 
   function sortChange(ev, currentMovies) {
@@ -106,7 +111,7 @@ const Home = () => {
           <div className="search__result">
             <h2 className="result__title">Search results:</h2>
             <span id="search__keyword">{search? search : keyword}</span>
-            {console.log("well ", search)}
+            
           </div>
           <div className="filter__container">
             <div className="values">
