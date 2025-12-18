@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import {MoviesContext} from '../App';
+
 import {useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
@@ -20,42 +21,16 @@ import Card from "../components/Card";
  */
 
 const Home = () => {
-  const [movies, setMovies] = useState([]);
-   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
-  const [keyword, setKeyword] = useState("");
+      const {movies, keyword, setKeyword, loading, setLoading, getMovies } = useContext(MoviesContext);
+
+  //const [movies, setMovies] = useState([]);
+  const navigate = useNavigate();
+  //const [loading, setLoading] = useState(true);
+  
   const [sortedMovies, setSortedMovies] = useState([]);
-
-  
-
-  
-
-  // const location = useLocation();
-  // const queryParams = new URLSearchParams(location.search);
-  // const search = queryParams.get('s'); // Extracts the value of 's'
-
   const {search} = useParams();
-  console.log(search)
+  
 
-  const getMovies = async (paramStr) => {
-      
-    try {
-      console.log("paramStr" , paramStr)
-      const { data } = await axios.get(
-        `https://www.omdbapi.com/?apikey=da55dd74&s=${paramStr || ''} `
-      );
-
-      
-      const { Search } = data;
-
-      setMovies(!Search? null:Search);
-    } catch (error) {
-      console.log(error);
-    }
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  };
 
   function searchChange(evparam) {
     console.log('Search Change', evparam.target.value)
@@ -63,7 +38,7 @@ const Home = () => {
     setKeyword(evparam.target.value);
 
     setLoading(true);
-
+  
     getMovies(evparam.target.value);
     navigate(`/home/${evparam.target.value}`)
   }
@@ -86,11 +61,26 @@ const Home = () => {
   
   }
 
-  useEffect(() => {
+  useEffect(()=> {
+    console.log(movies, typeof movies)
+    if((!movies || movies.length === 0) && search) { // Fetch only if movies are not already loaded and search exists
+      setLoading(true);
+      console.log(search)
+      getMovies(`s=${search}`);
+      
+    }
+  
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
     
-    console.log(search)
-    getMovies(search || movies);
-  }, []);
+  }, [loading, setLoading, search, movies, getMovies])
+
+    //   useEffect(() => {
+    //     if (!movies && search) { // Fetch only if movies are not already loaded and search exists
+    //         getMovies(search);
+    //     }
+    // }, [search, movies, getMovies]);
 
   return (
     <>
@@ -188,9 +178,10 @@ const Home = () => {
           ) : !movies || (movies.length === 0 && loading === false) ? (
             <div>No Result </div>
           ) : sortedMovies.length !== 0 ? (
-            sortedMovies.map((movie) => (
+            sortedMovies.map((movie, index) => (
               <Card
-                key={movie.imdbID}
+                key={index}
+                imdbID={movie.imdbID}
                 poster={movie.Poster}
                 title={movie.Title}
                 year={movie.Year}
@@ -200,9 +191,11 @@ const Home = () => {
           )
           :
           (
-            movies.map((movie) => (
+            movies.map((movie, index) => (
               <Card
-                key={movie.imdbID}
+                key={index}
+                search={search}
+                imdbID={movie.imdbID}
                 poster={movie.Poster}
                 title={movie.Title}
                 year={movie.Year}

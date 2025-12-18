@@ -4,11 +4,11 @@ import Blinker_Logo_purple from '../assets/blinkerlogo-purple.png'
 
 import { Link } from 'react-router-dom';
 
-const Navbar = ({landing}) => {
+const Navbar = ({landing, cardinfo}) => {
   return (
-    <nav className={landing? "landing": ""} >
+    <nav className={landing || cardinfo? "landing": ""} >
             <div className="logo">
-              <Link to="/"><img src={landing? Blinker_Logo_purple : Blinker_Logo} className="logo__img" alt="" /></Link>
+              <Link to="/"><img src={landing || cardinfo? Blinker_Logo_purple : Blinker_Logo} className="logo__img" alt="" /></Link>
             </div>
             <div className="nav__links">
               <Link to="/">home</Link>

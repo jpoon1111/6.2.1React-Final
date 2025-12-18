@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-const Search = ({landing, searchChange, searchChangeLanding, keyword}) => {
+const Search = ({landing, searchChange, keyword}) => {
   const [loading, setLoading] = useState(null);
-   const [handleSearchEvent,  setHandleSearchEvent] = useState(()=>(landing? searchChangeLanding : searchChange));
+   
    const navigate = useNavigate();
    //const [query, setQuery] = useState("");
   
-  console.log(typeof keyword)
+  console.log(typeof keyword, keyword)
    
 
   const initSearch = ()=>{
@@ -17,9 +17,9 @@ const Search = ({landing, searchChange, searchChangeLanding, keyword}) => {
   const searchSubmit = ()=>{
     initSearch()
     console.log("My search now is ....", keyword)
-    setTimeout(()=>{
+    // setTimeout(()=>{
       navigate(`/home/${keyword}`)
-    }, 1000)
+    // }, 1000)
     
   }
   
