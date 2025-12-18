@@ -45,50 +45,71 @@ const CardInfo = () => {
   
   
   useEffect(()=>{
-    async function fetchMovieId(paramId) {
+    const getMovieId  = async (paramId) => {
+      console.log(`https://www.omdbapi.com/?apikey=da55dd74&${paramId}`)
+        try {
+        const response = await axios.get(`https://www.omdbapi.com/?apikey=da55dd74&${paramId}`);
+          
+          if (response.data.Response === "False") {
+              console.error("Movie not found:", response.data.Error);
+              setCurrentMovie(null); // You might want this to reset currentMovie
+          } else {
+              setCurrentMovie(response.data); // Successfully set the movie data
+          }
 
-      if((!movies || movies.length === 0) && search) { // Fetch only if movies are not already loaded and search exists
-        
-        console.log('get movies by search ', search)
-        getMovies(`s=${search}`);
-        
-      }
-
-      
-
-     
-        
+        } catch (error) {
+            console.error("Error fetching data:", error);
+            return null;
+        }
+    
+    }
+     getMovieId(`i=${id}`);
+    
+    if((!movies || movies.length === 0) && search) { // Fetch only if movies are not already loaded and search exists
+      setLoading(true);
+      console.log(search)
+      getMovies(`s=${search}`);
       
     }
-
-
-    console.log('65', movies);
-
-    console.log(`https://www.omdbapi.com/?apikey=da55dd74&${id}`)
-
-    
     
   },[id, search])
   
   
+  
   //const movie = movies.find((movie)=>(movie.imdbID === id))
-    // console.log('cardInfo ', id, movie)
+    
  
   
 
-  const title = "movie.Title";
-  const rating = "movie.imdbRating";
-  const revenue = ""//movie.BoxOffice.replace(/[$,]/g, '');
-  const plot = "movie.Plot";
-  const rated = "movie.Rated";
-  const year = "movie.Released";
-  const duration = "movie.Runtime";
-  const genre = "movie.Genre";
-  const type = "movie.Type";
-  const language = "movie.Language";
-  const country = "movie.Country";
+  // const title = currentMovie.Title;
+  // const rating = currentMovie.imdbRating;
+  // const revenue = "";//currentMovie.BoxOffice.replace(/[$,]/g, '');
+  // const plot = currentMovie.Plot;
+  // const rated = currentMovie.Rated;
+  // const year = currentMovie.Released;
+  // const duration = currentMovie.Runtime;
+  // const genre = currentMovie.Genre;
+  // const type = currentMovie.Type;
+  // const language = currentMovie.Language;
+  // const country = currentMovie.Country;
+
+
+  const title = currentMovie?.Title || "Loading... or N/A";
+  const rating = currentMovie?.imdbRating || "N/A";
+  const revenue = currentMovie?.BoxOffice ? currentMovie.BoxOffice.replace(/[$,]/g, '') : "N/A";
+  const plot = currentMovie?.Plot || "No plot available.";
+  const rated = currentMovie?.Rated || "N/A";
+  const year = currentMovie?.Released || "N/A";
+  const duration = currentMovie?.Runtime || "N/A";
+  const genre = currentMovie?.Genre || "N/A";
+  const type = currentMovie?.Type || "N/A";
+  const language = currentMovie?.Language || "N/A";
+  const country = currentMovie?.Country || "N/A";
 
   function convertToDate(paramStr) {
+      // if(!paramStr || paramStr === ""){
+      //   paramStr = "22 Jun 2001";
+      // }
       // const dateStr = paramStr;
       // const dateObj = new Date(dateStr);
       // const months = ["January", "February", "March", "April", "May", "June", 
@@ -101,7 +122,12 @@ const CardInfo = () => {
       // console.log(formattedDate); // Output: 06/22/2001
       // return formattedDate;
     }
+
     function convertToHrAndMin(paramTime) {
+      // if(!paramTime || paramTime ===""){
+      //   paramTime = "106 min";
+      // }
+
       // const minStr = paramTime.slice(0, paramTime.indexOf(" "));
       // const hour = Math.floor(+minStr/60);
       // const minutes = +minStr%60;
@@ -110,23 +136,6 @@ const CardInfo = () => {
       // return durationStr ;
     }
 
-
-    // useEffect(()=> {
-        
-    //     getMovies(`s=${search}`);
-
-    //     // if(!movies && id) { // Fetch only if movies are not already loaded and id exists
-    //     //   setLoading(true);
-          
-    //     //   getMovies(id);
-          
-    //     // }
-      
-    //       setTimeout(() => {
-    //         setLoading(false);
-    //       }, 2000);
-        
-    //   }, [loading, setLoading, search, id, movies, getMovies])
 
 
   return (
@@ -154,6 +163,13 @@ const CardInfo = () => {
                 <div className="book__selected--description">
                   <h2 className="book__selected--title">{title}</h2>
                     {console.log(typeof rating)}
+                    {console.log(movies)}
+                    {console.log(currentMovie)}
+                    {console.log(currentMovie.Released)}
+                   { console.log('Year:', year, typeof year) // Check what this logs
+}
+            {console.log('Valid Date:',typeof year,  new Date(year))// Validate the date
+            } 
                     {/* <Rating rating={rating}></Rating> */}
                     <div className="book__selected--price">
                       <Price originalPrice={+revenue}></Price>
