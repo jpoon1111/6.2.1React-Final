@@ -53,8 +53,7 @@ const Book = ({ movie, title }) => {
               <div className="book__label">Type : <span>{movie.Type}</span></div> 
               
               <div className="book__label">Released : <span>{movie.Year? movie.Year : "N/A"}</span></div>
-              {/* <div className="book__label">Duration : <span>{convertToHrAndMin(movie.Runtime)}</span></div> */}
-              <div className="book__label">Country : <span>{movie.Country}</span></div>
+              
         </div>
 
          

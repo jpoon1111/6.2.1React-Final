@@ -37,15 +37,15 @@ const Search = ({landing, searchChange, keyword}) => {
 
   return ( 
     <div className={landing? "landing search__bar--wrapper": "search__bar--wrapper"}>
-            <h1 className="search__title">{landing? "australia's most awarded car subscription platform" : "browse our Movies"}</h1>
-              {landing? <h2 className='search__sub-title'>Find your dream car with <span>Blinker</span></h2>: null}
+            <h1 className="search__title">{landing? "America's most awarded Movie subscription platform" : "browse our Movies"}</h1>
+              {landing? <h2 className='search__sub-title'>Find your Favorite Movie with <span>Movie Collection</span></h2>: null}
           
             <div className="input__wrapper">
               <input onKeyDown={ (ev)=> (ev.key === "Enter") && (landing ? searchSubmit() : searchChange(ev) ) } 
               //  onChange={(e)=> handleSearchEvent(e)}
                 type="text"
                 id="search__entered"
-                placeholder="Search by Make, Model or Keyword"
+                placeholder="Search by Movie keyword"
                 
               />
               {

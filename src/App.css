@@ -50,7 +50,7 @@ button {
     NAVIGATION 
 */
 .logo__img {
-  height: 40px;
+  height: 80px;
   width: 150px;
 }
 
@@ -87,7 +87,7 @@ button {
 
 .nav__button {
   background-color: #fff;
-  color: #6030b1;
+  color: #5EE0FA;
   height: 48px;
   margin-left: 20px;
   padding: 12px 40px;
@@ -171,7 +171,7 @@ button {
   top: 0;
   bottom: 0;
   right: 0;
-  color: #6030b1;
+  color: #5EE0FA;
   z-index: 10;
   cursor: pointer;
 
@@ -634,7 +634,7 @@ input[type="range"]:hover::-ms-thumb {
   LANDING PAGENAVIGATION 
 */
 .landing .nav__links a {
-  color: #6030b1;
+  color: #5EE0FA;
 }
 
 .landing .nav__links a:first-child {
@@ -642,14 +642,14 @@ input[type="range"]:hover::-ms-thumb {
 }
 
 .landing .nav__links a:after {
-  background-color: #6030b1;
+  background-color: #5EE0FA;
 }
 .landing .nav__links a:first-child::after {
   background-color: #0a1f44;
 }
 
 .landing .nav__button {
-  background-color: #6030b1;
+  background-color: #5EE0FA;
   color: #fff;
 }
 .landing .nav__button:hover {
@@ -657,7 +657,7 @@ input[type="range"]:hover::-ms-thumb {
 }
 
 .landing .search__title {
-  color: #6030b1;
+  color: #5EE0FA;
   max-width: 730px;
   font-weight: 700;
   margin: 30px auto;
@@ -673,8 +673,8 @@ input[type="range"]:hover::-ms-thumb {
 }
 
 .landing .search__button-link {
-  border: 1px solid #6030b1;
-  background-color: #6030b1;
+  border: 1px solid #5EE0FA;
+  background-color: #5EE0FA;
   box-shadow: 7px 7px 14px rgba(134, 93, 204, 0.3);
   cursor:pointer;
 
