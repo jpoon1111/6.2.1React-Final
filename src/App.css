@@ -10,7 +10,7 @@
   color: #fff;
 }
 
-header, .page__header {
+header {
   position: relative;
   height: 326px;
   width: 100%;
@@ -840,6 +840,11 @@ select {
     
 */
 
+
+.page__header {
+  height:auto;
+}
+
 .container__book--selected {
   padding-top: 16px;
 }
@@ -1155,7 +1160,7 @@ select {
 
 /*SMALL PHONES DEVICES*/
 @media (max-width: 520px) {
-  header, .page__header {
+  header {
     padding: 1em;
     height: 270px;
   }

@@ -5,7 +5,7 @@ import Rating from "./Rating";
 import Price from "./Price";
 
 
-const Book = ({ movie, title, convertToDate, convertToHrAndMin}) => {
+const Book = ({ movie, title }) => {
   
 
 
@@ -29,7 +29,7 @@ const Book = ({ movie, title, convertToDate, convertToHrAndMin}) => {
       }
 
     }
-  })
+  }, [])
 
   return (
 
@@ -48,11 +48,12 @@ const Book = ({ movie, title, convertToDate, convertToHrAndMin}) => {
           <Link to={`/home/${movie.imdbID}`} className="book__title--link">
               <div className="book__selected--title">{title}</div>
               </Link>
-              <Rating rating={movie.imdbRating} />
+              {/* <Rating rating={movie.imdbRating} /> */}
               <div className="book__label">Title : <span>{movie.Title}</span></div>
-              <div className="book__label">Genre : <span>{movie.Genre}</span></div>
-              <div className="book__label">Released : <span>{convertToDate(movie.Released)}</span></div>
-              <div className="book__label">Duration : <span>{convertToHrAndMin(movie.Runtime)}</span></div>
+              <div className="book__label">Type : <span>{movie.Type}</span></div> 
+              
+              <div className="book__label">Released : <span>{movie.Year? movie.Year : "N/A"}</span></div>
+              {/* <div className="book__label">Duration : <span>{convertToHrAndMin(movie.Runtime)}</span></div> */}
               <div className="book__label">Country : <span>{movie.Country}</span></div>
         </div>
 
@@ -85,17 +86,3 @@ const Book = ({ movie, title, convertToDate, convertToHrAndMin}) => {
 };
 
 export default Book;
-
-
-       
-      // {<div className="book__price">
-      //   {book.salePrice ? (
-      //     <>
-      //       <span className="book__price--normal">{book.originalPrice.toFixed(2)}</span>$
-      //       {book.salePrice.toFixed(2)}
-      //     </>
-      //   ) : (
-      //   <>${book.originalPrice.toFixed(2)}</>
-      //   )}
-      // </div>
-      // }

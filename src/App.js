@@ -8,6 +8,17 @@ import axios from "axios";
 
 export const MoviesContext = createContext();
 
+
+/**
+ * build a homepage
+ * from homepage make a loading state on the search icon
+ * from homepage when  searching , when you search from home page, make it reroute and have search populate based on search criteria
+ * Arrow right or left switch pages
+ *  make it professional and go to Canva and find a logo
+ * click an item and show details on it like the book like rating, title,summary or price
+ *
+ */
+
 function App() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);

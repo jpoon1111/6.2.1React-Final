@@ -10,15 +10,7 @@ import Card from "../components/Card";
 
 
 
-/**
- * build a homepage
- * from homepage make a loading state on the search icon
- * from homepage when  searching , when you search from home page, make it reroute and have search populate based on search criteria
- * Arrow right or left switch pages
- *  make it professional and go to Canva and find a logo
- * click an item and show details on it like the book like rating, title,summary or price
- *
- */
+
 
 const Home = () => {
       const {movies, keyword, setKeyword, loading, setLoading, getMovies } = useContext(MoviesContext);
@@ -75,12 +67,6 @@ const Home = () => {
       }, 2000);
     
   }, [loading, setLoading, search, movies, getMovies])
-
-    //   useEffect(() => {
-    //     if (!movies && search) { // Fetch only if movies are not already loaded and search exists
-    //         getMovies(search);
-    //     }
-    // }, [search, movies, getMovies]);
 
   return (
     <>
@@ -211,3 +197,4 @@ const Home = () => {
 };
 
 export default Home;
+
