@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {MoviesContext} from '../App';
 import Rating from "../components/ui/Rating";
-import Price from "../components/ui/Price";
-import Book from "../components/ui/Book";
+import Revenue from "./ui/Revnue";
+import Movie from "./ui/Movie";
 import Navbar from "./Navbar";
 //import { movies } from "../data";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -46,12 +46,21 @@ const CardInfo = () => {
   const getMovieId  = async (paramId) => {
       console.log( "This is my url hitting ", `https://www.omdbapi.com/?apikey=da55dd74&i=${paramId}`);
         try {
-        const response = await axios.get(`https://www.omdbapi.com/?apikey=da55dd74&i=${paramId}`);
+        
+          const response = await axios.get(`https://www.omdbapi.com/?apikey=da55dd74&i=${paramId}`);
           
-           if (id === paramId){
-            
-              setCurrentMovie(response.data); // Successfully set the movie data
-          }else if (response.data.Response === "False") {
+          //   if (id === paramId){              
+          //       setCurrentMovie(response.data); // Successfully set the movie data
+
+          //   }
+
+          // else if (id !== paramId) {
+          //   return response.data;
+          // }
+          if (response.data.Response === "True"){
+            return response.data;
+          }
+          else if (response.data.Response === "False") {
               console.error("Movie not found:", response.data.Error);
               setCurrentMovie(null); // You might want this to reset currentMovie
           }
@@ -65,45 +74,34 @@ const CardInfo = () => {
     const fetchDetailedMovies = async (paramMovies)=>{
       console.log("fetchDetailedMovies", paramMovies);
       const detailedMoviesData = [];// this array will hold movie data
-      console.log("detailedMoviesData", detailedMoviesData);
       for (const movie of paramMovies){
+        console.log('69 -', movie.imdbID);
+        console.log("70 -", (await getMovieId(`${movie.imdbID}`)))
         const detailedMovie = await getMovieId(`${movie.imdbID}`);// await for each promise
+        
+        console.log( "72 ", detailedMovie, !!detailedMovie);
         if(detailedMovie){
-          console.log( "72 ", detailedMovie)
+          console.log( "73 ", detailedMovie);
+            if (id === detailedMovie.imdbID){   
+              console.log('86 current movie',detailedMovie )           
+              setCurrentMovie(detailedMovie); // Successfully set the movie data
+
+            }
           detailedMoviesData.push(detailedMovie);//add to the array if it is true or not null/false
         }
+        console.log('83', detailedMoviesData, typeof detailedMoviesData);
       }
-      return detailedMoviesData;
+
+       
+      setDetailedMovies(detailedMoviesData);
       
     }
-    
-
-    // const fetchDetailedMovies = async ()=>{
-    //   console.log("MOVIES ---", movies)
-       
-    //   if(movies.length > 0 ) {
-       
-    //     const detailedMoviesData = [];// this array will hold movie data
-      
-    //     for (const movie of movies){
-    //       console.log(movie.imdbID);
-
-    //       const detailedMovie = await getMovieId(`i=${movie.imdbID}`)// await for each promise
-    //       if (detailedMovie){
-    //         detailedMoviesData.push(detailedMovie);//add to the array if it is true or not null/false
-    //       }
-    //     }
-    //     console.log('check to see ', detailedMoviesData)
-    //     setDetailedMovies(detailedMoviesData);
-
-    //   }
-      
-    // } 
+  
 
   
   
   useEffect(()=>{
-    setLoading(true);
+    
     
     if((!movies || movies.length === 0) && search) { // Fetch only if movies are not already loaded and search exists
       setLoading(true);
@@ -111,13 +109,15 @@ const CardInfo = () => {
       getMovies(`s=${search}`);
       
     }
+
+    
+    
     setLoading(false);
     
   },[id, search]);
   
   useEffect(()=>{
-    
-
+          
          fetchDetailedMovies(movies)
 
         
@@ -130,7 +130,7 @@ const CardInfo = () => {
   
 
   const title = currentMovie?.Title || "Loading... or N/A";
-  const rating = currentMovie?.imdbRating || "N/A";
+  // const rating = currentMovie? currentMovie.imdbRating : "N/A";
   const revenue = currentMovie?.BoxOffice.replace(/[$,]/g, '') || "";
   const plot = currentMovie?.Plot || "No plot available.";
   const rated = currentMovie?.Rated || "N/A";
@@ -170,46 +170,49 @@ const CardInfo = () => {
       return durationStr ;
     }
 
-
+    
 
   return (
     <>
+    {(detailedMovies.length > 0) ?
+      <>
       <div className="page__header">
         <Navbar cardinfo />
       </div>
-
-      <div id="books__body">
-        <main id="books__main">
-          <div className="books__container">
-            <div className="books__wrapper">
-              <div className="book__selected--top">
-                <Link to="/home" className="book__link">
+      <div id="movies__body">
+        <main id="movies__main">
+          <div className="movies__container">
+            <div className="movies__wrapper">
+              <div className="movie__selected--top">
+                <Link to="/home" className="movie__link">
                   <FontAwesomeIcon icon="arrow-left" />
                 </Link>
-                <Link to="/home" className="book__link">
-                  <h2 className="book__selected--title--top">Movies</h2>
+                <Link to="/home" className="movie__link">
+                {console.log(search)}
+                  <h2 className="movie__selected--title--top">Movies</h2>
                 </Link>
               </div>
-              <div className="book__selected">
-                <figure className="book__selected--figure">
-                  <img src={poster} alt="" className="book__selected--img" />
+              <div className="movie__selected">
+                <figure className="movie__selected--figure">
+                  <img src={poster} alt="" className="movie__selected--img" />
                 </figure>
-                <div className="book__selected--description">
-                  <h2 className="book__selected--title">{title}</h2>
-                    {console.log(typeof rating)}
-                    {console.log("Movies Obj", movies)}
-                    {console.log(currentMovie)}
-                    {console.log( 'new movies .... ', detailedMovies)}
-                    {/* <Rating rating={rating}></Rating> */}
-                    <div className="book__selected--price">
-                      <Price originalPrice={+revenue}></Price>
+                <div className="movie__selected--description">
+                  <h2 className="movie__selected--title">{title}</h2>
+                  
+                    {currentMovie? 
+                      <Rating rating={+currentMovie.imdbRating}></Rating>
+                      :
+                      <></>
+                      }
+                    <div className="movie__selected--price">
+                      <Revenue revenue={+revenue}></Revenue>
                     </div>
-                    <div className="book__summary">
-                      <div className="book__summary--title">
+                    <div className="movie__summary">
+                      <div className="movie__summary--title">
                           Plot
                       </div>
-                      <p className="book__summary--para">{plot}</p>
-                      <ul className="book__summary--details">
+                      <p className="movie__summary--para">{plot}</p>
+                      <ul className="movie__summary--details">
                         <li> Rated : <span>{rated}</span></li>
                         <li> Released Date : <span>{(year || year !== "") ? convertToDate(year) : "N/A"}</span></li>
                         <li> Duration : <span>{(duration || duration !== "") ? convertToHrAndMin(duration) : "N/A"}</span></li>
@@ -220,30 +223,26 @@ const CardInfo = () => {
                        
                       </ul>
                     </div>
-                    <button className="book__button">Add to Playlist</button>
+                    <button className="movie__button">Add to Playlist</button>
                 </div>
                 
               </div>
             </div>
           </div>
           
-          <div className="books__container">
-            <div className="books__wrapper">
+          <div className="movies__container">
+            <div className="movies__wrapper">
               
-              <div className="book__selected--top">
-                <h2 className="book__selected--title--top">Recommended Movies</h2>
+              <div className="movie__selected--top">
+                <h2 className="movie__selected--title--top">Recommended Movies</h2>
               </div>
-              <div className="books">
-                {console.log(movies)}
-                { console.log(movies.filter((movie) => 
-                  movie.imdbID !== id)
-                  .slice(0, 4))
-                }
+              <div className="movies">
+                {console.log('225', detailedMovies, typeof detailedMovies)}
                 { 
-                movies.filter((movie) => 
+                detailedMovies.filter((movie) => 
                   movie.imdbID !== id)
                   .slice(0, 4)
-                  .map((movie, index) => <Book  movie={movie} key={index} id={id} title={title} ></Book> )
+                  .map((movie, index) => <Movie  movie={movie} key={index} index={index} title={title} convertToDate={convertToDate} convertToHrAndMin={convertToHrAndMin}></Movie> )
                   
               }
               </div>
@@ -253,6 +252,14 @@ const CardInfo = () => {
         </main>
       </div>
     </>
+    :
+          <>
+        <div className="movie__img--skeleton"></div>
+        <div className="skeleton movie__title--skeleton"></div>
+        <div className="skeleton movie__rating--skeleton"></div>
+        <div className="skeleton movie__price--skeleton"></div>
+      </>}
+  </>
   );
 };
 

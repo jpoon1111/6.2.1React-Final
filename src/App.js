@@ -46,15 +46,15 @@ function App() {
       }finally{
         console.log(loading);
   
-      // setTimeout(() => {
+      setTimeout(() => {
         setLoading(false);
-      // }, 2000);
+      }, 2000);
 
       }
-
-
-
     };
+
+    
+
 
   return ( 
     <div className="App">

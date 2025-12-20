@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar";
 import Search from "../components/Search";
 import Content from "../components/Content";
 import Card from "../components/Card";
+import Slider from "../components/ui/Slider";
 
 
 
@@ -30,9 +31,9 @@ const Home = () => {
     setKeyword(evparam.target.value);
 
     setLoading(true);
-  
-    getMovies(evparam.target.value);
     navigate(`/home/${evparam.target.value}`)
+    getMovies(evparam.target.value);
+    
   }
 
   function sortChange(ev, currentMovies) {
@@ -57,7 +58,7 @@ const Home = () => {
     console.log(movies, typeof movies)
     if((!movies || movies.length === 0) && search) { // Fetch only if movies are not already loaded and search exists
       setLoading(true);
-      console.log(search)
+      console.log("home 60", search)
       getMovies(`s=${search}`);
       
     }
@@ -90,7 +91,8 @@ const Home = () => {
             
           </div>
           <div className="filter__container">
-            <div className="values">
+            <Slider></Slider>
+            {/* <div className="values">
               <h2 className="price__range">
                 <span className="price__range--title"> Year Range : </span>
                 <span id="range1">1900 to </span>
@@ -119,7 +121,7 @@ const Home = () => {
             <div className="display__range">
               <span id="range1">1900</span>
               <span id="range2">2025</span>
-            </div>
+            </div> */}
 
             <select
               name="movieSort"

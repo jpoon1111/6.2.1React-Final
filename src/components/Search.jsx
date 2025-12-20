@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { MoviesContext } from '../App';
 
-const Search = ({landing, searchChange, keyword}) => {
-  const [loading, setLoading] = useState(null);
+const Search = ({landing, searchChange, searchChangeLanding}) => {
+
+  const {movies, keyword, setKeyword, loading, setLoading, getMovies } = useContext(MoviesContext);
+
    
    const navigate = useNavigate();
-   //const [query, setQuery] = useState("");
+   
   
   console.log(typeof keyword, keyword)
    
@@ -15,21 +18,24 @@ const Search = ({landing, searchChange, keyword}) => {
   }
 
   const searchSubmit = ()=>{
+
+    
     initSearch()
-    console.log("My search now is ....", keyword)
+    console.log("My search now is ....", keyword, )
     // setTimeout(()=>{
       navigate(`/home/${keyword}`)
     // }, 1000)
+    console.log(`/home/${keyword}`)
+
+    
     
   }
   
 
 
   useEffect(()=>{
-    //setHandleSearchEvent(()=>(landing? searchChangeLanding : searchChange))
-    //console.log("Handling event based on landing:", landing, handleSearchEvent);
-
-    //setQuery(keyword)
+    // setHandleSearchEvent(()=>(landing? searchChangeLanding : searchChange))
+    // console.log("Handling event based on landing:", landing, handleSearchEvent);
     
   }, [])
 
@@ -41,7 +47,7 @@ const Search = ({landing, searchChange, keyword}) => {
               {landing? <h2 className='search__sub-title'>Find your Favorite Movie with <span>Movie Collection</span></h2>: null}
           
             <div className="input__wrapper">
-              <input onKeyDown={ (ev)=> (ev.key === "Enter") && (landing ? searchSubmit() : searchChange(ev) ) } 
+              <input onKeyDown={ (ev)=> (ev.key === "Enter") && ( landing ? searchChangeLanding(ev) : searchChange(ev) )  } 
               //  onChange={(e)=> handleSearchEvent(e)}
                 type="text"
                 id="search__entered"

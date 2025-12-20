@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Buiilding from '../assets/building.png';
 import Navbar from '../components/Navbar';
 import Search from '../components/Search';
 import Home from './Home';
 import { useNavigate } from 'react-router-dom';
 
-const Landing = () => {
+import { MoviesContext } from '../App';
 
-const [keyword, setKeyword] = useState("");
+const Landing = () => {
 const navigate = useNavigate();
 
-
+const {movies, keyword, setKeyword, loading, setLoading, getMovies } = useContext(MoviesContext);
 
   
 
@@ -21,14 +21,17 @@ const navigate = useNavigate();
 
 
 function searchChangeLanding(evparam) {
-  
   const valueHolder = evparam.target.value
   console.log(valueHolder)
 
-    
+    navigate(`/home/${keyword}`)
   //   //(evparam.key === "Enter") ? navigate(`/home/${valueHolder}`) : navigate(`/}`) 
     
     setKeyword(valueHolder)
+    getMovies(`s=${valueHolder}`)
+    setLoading(true)
+    navigate(`/home/${valueHolder}`)
+    
   }
 
   return (
@@ -36,7 +39,7 @@ function searchChangeLanding(evparam) {
       <header>
         <Navbar landing />
  
-        <Search landing keyword={keyword} searchChangeLanding={searchChangeLanding} />    
+        <Search landing keyword={keyword} setKeyword={setKeyword} searchChangeLanding={searchChangeLanding} />    
 
       </header>
       <div className='building__wrapper'>

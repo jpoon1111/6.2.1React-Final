@@ -1,25 +1,25 @@
 import React from "react";
 
-const Price = ({ salePrice, originalPrice }) => {
+const Revenue = ({ revenue }) => {
 
         // console.log(salePrice, originalPrice);
   return (
 
       <div className="book__price">
-        {salePrice ? (
+        {!revenue ? (
           <>
-            <span className="book__price--normal">{originalPrice.toFixed(2)}</span>$
-            {salePrice.toFixed(2)}
+            "N/A"
+            
           </>
         ) : (
-        <>{originalPrice.toLocaleString(undefined, {style: 'currency', currency: 'USD'})}</>
+        <>{revenue.toLocaleString(undefined, {style: 'currency', currency: 'USD'})}</>
         )}
       </div>
 
   );
 };
 
-export default Price;
+export default Revenue;
 
 // const formattedNumber = number.toLocaleString('en-US', {
 //     minimumFractionDigits: 3,

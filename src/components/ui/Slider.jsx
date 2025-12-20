@@ -30,14 +30,8 @@ const SliderComponent = ({search, keyword, movies, sortChange}) => {
   };
 
   return (
- <div id="filter" className="content__wrapper content__wrapper--search">
-          <div className="search__result">
-            <h2 className="result__title">Search results:</h2>
-            <span id="search__keyword">{search? search : keyword}</span>
-            
-          </div>
-          <div className="filter__container">
-            <div className="values">
+ <>
+  <div className="values">
               <h2 className="price__range">
                 <span className="price__range--title"> Year Range : </span>
                 <span id="range1">1900 to </span>
@@ -67,20 +61,7 @@ const SliderComponent = ({search, keyword, movies, sortChange}) => {
               <span id="range1">1900</span>
               <span id="range2">2025</span>
             </div>
-
-            <select
-              name="movieSort"
-              id="movieSort"
-              onChange={(ev) => sortChange(ev, movies)}
-            >
-              <option value="default" selected disabled>
-                Sort By Year
-              </option>
-              <option value="newest">Newest to Oldest</option>
-              <option value="oldest">Oldest to Newest</option>
-            </select>
-          </div>
-        </div>
+ </>
   );
 };
 
