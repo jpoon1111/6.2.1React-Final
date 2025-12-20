@@ -15,7 +15,7 @@ const {movies, keyword, setKeyword, loading, setLoading, getMovies } = useContex
   
 
   useEffect(()=>{
-  
+    setLoading(false)
     console.log(keyword)
   }, [keyword])
 
