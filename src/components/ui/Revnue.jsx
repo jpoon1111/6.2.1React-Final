@@ -6,7 +6,7 @@ const Revenue = ({ revenue }) => {
   return (
 
       <div className="book__price">
-        {revenue === 0 ? (
+        {!revenue? (
           <>
             "N/A"
             

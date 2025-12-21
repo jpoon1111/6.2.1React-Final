@@ -127,7 +127,7 @@ const CardInfo = () => {
 
   const title = currentMovie?.Title || "Loading... or N/A";
   // const rating = currentMovie? currentMovie.imdbRating : "N/A";
-  const revenue = currentMovie && currentMovie.BoxOffice ? currentMovie.BoxOffice.replace(/[$,]/g, '') : "0" ;
+  const revenue = currentMovie?.BoxOffice || "0" ;
   const plot = currentMovie?.Plot || "No plot available.";
   const rated = currentMovie?.Rated || "N/A";
   const year = currentMovie && currentMovie.Released? currentMovie.Released : "";
@@ -201,7 +201,7 @@ const CardInfo = () => {
                       <></>
                       }
                     <div className="movie__selected--price">
-                      {!revenue?<Revenue revenue={+revenue}></Revenue> : <div>N/A</div>}
+                      {revenue!=="0" ?<Revenue revenue={+revenue.replace(/[$,]/g, '') }></Revenue> : <div>N/A</div>}
                     </div>
                     <div className="movie__summary">
                       <div className="movie__summary--title">
