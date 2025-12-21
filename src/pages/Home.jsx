@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar";
 import Search from "../components/Search";
 import Content from "../components/Content";
 import Card from "../components/Card";
-import SliderComponent from "../components/ui/SliderComponent";
+
 
 
 
@@ -51,6 +51,7 @@ const Home = () => {
   }
 
   useEffect(()=> {
+    
     console.log(movies, typeof movies)
     if((!movies || movies.length === 0) && search) { // Fetch only if movies are not already loaded and search exists
       setLoading(true);
@@ -59,8 +60,13 @@ const Home = () => {
     }
 
     setTimeout(() => {
- 
       setLoading(false);
+    //  if((!movies || movies.length === 0) && search) { // Fetch only if movies are not already loaded and search exists
+    //   setLoading(true);
+    //   console.log("home 60", search)
+    //   getMovies(`s=${search}`);
+    // }
+      
     }, 2000);
 
     

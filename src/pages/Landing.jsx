@@ -16,6 +16,7 @@ const Landing = () => {
 
   useEffect(()=>{
     setLoading(false)
+    
     console.log(keyword)
   }, [keyword])
 
@@ -24,13 +25,18 @@ const Landing = () => {
     const valueHolder = evparam.target.value
     console.log(valueHolder)
 
-      navigate(`/home/${keyword}`)
+     // navigate(`/home/${keyword}`)
     //   //(evparam.key === "Enter") ? navigate(`/home/${valueHolder}`) : navigate(`/}`) 
-      
+      setLoading(true)
+
+       
       setKeyword(valueHolder)
       getMovies(`s=${valueHolder}`)
-      setLoading(true)
-    navigate(`/home/${valueHolder}`)
+      navigate(`/home/${valueHolder}`)
+
+ 
+
+    
     
   }
 
