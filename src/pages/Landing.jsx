@@ -29,7 +29,7 @@ const Landing = () => {
     //   //(evparam.key === "Enter") ? navigate(`/home/${valueHolder}`) : navigate(`/}`) 
       setLoading(true)
 
-       
+
       setKeyword(valueHolder)
       getMovies(`s=${valueHolder}`)
       navigate(`/home/${valueHolder}`)

@@ -74,21 +74,17 @@ function sortChange(ev) {
   useEffect(()=> {
     setSortedMovies([])
     console.log(movies, typeof movies)
+
+
+    setTimeout(() => {
+      setLoading(false);      
+    }, 2000);
     if((!movies || movies.length === 0) && search) { // Fetch only if movies are not already loaded and search exists
       setLoading(true);
       console.log("home 60", search)
       getMovies(`s=${search}`);
     }
 
-    setTimeout(() => {
-      setLoading(false);
-    //  if((!movies || movies.length === 0) && search) { // Fetch only if movies are not already loaded and search exists
-    //   setLoading(true);
-    //   console.log("home 60", search)
-    //   getMovies(`s=${search}`);
-    // }
-      
-    }, 2000);
 
     
 
