@@ -130,7 +130,7 @@ const CardInfo = () => {
   const revenue = currentMovie && currentMovie.BoxOffice ? currentMovie.BoxOffice.replace(/[$,]/g, '') : "0" ;
   const plot = currentMovie?.Plot || "No plot available.";
   const rated = currentMovie?.Rated || "N/A";
-  const year = currentMovie?.Released || "";
+  const year = currentMovie && currentMovie.Released? currentMovie.Released : "";
   const duration = currentMovie?.Runtime || "N/A";
   const genre = currentMovie?.Genre || "N/A";
   const type = currentMovie?.Type || "N/A";
@@ -210,7 +210,7 @@ const CardInfo = () => {
                       <p className="movie__summary--para">{plot}</p>
                       <ul className="movie__summary--details">
                         <li> Rated : <span>{rated}</span></li>
-                        <li> Released Date : <span>{(year || year !== "") ? convertToDate(year) : "N/A"}</span></li>
+                        <li> Released Date : <span>{(year && year !== "N/A" && year !== "") ? convertToDate(year) : "N/A"}</span></li>
                         <li> Duration : <span>{(duration || duration !== "") ? convertToHrAndMin(duration) : "N/A"}</span></li>
                         <li> Genre : <span>{genre}</span></li>
                         <li> Type : <span>{type}</span></li>

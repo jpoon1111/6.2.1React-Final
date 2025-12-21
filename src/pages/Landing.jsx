@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Buiilding from '../assets/building.png';
+import Movie_Countdown from '../assets/movie-countdown.gif';
+
 import Navbar from '../components/Navbar';
 import Search from '../components/Search';
 import Home from './Home';
@@ -48,9 +49,9 @@ const Landing = () => {
         <Search landing keyword={keyword} setKeyword={setKeyword} searchChangeLanding={searchChangeLanding} />    
 
       </header>
-      <div className='building__wrapper'>
-
-        <img src={Buiilding} alt="building" className="building"></img>
+      <div className='cinema__wrapper'>
+         
+        <img src={Movie_Countdown} alt="countdown" className="cinema"></img>
 
       </div>
 

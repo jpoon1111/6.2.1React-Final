@@ -568,7 +568,7 @@ input[type="range"]:hover::-ms-thumb {
 
 .loading-state {
   display: flex;
-  margin: 80px 0;
+  /* margin: 80px 0; */
   width: 100%;
   /* display: flex; */
   justify-content: center;
@@ -618,6 +618,10 @@ input[type="range"]:hover::-ms-thumb {
   flex-wrap: wrap;
   padding: 20px;
 } */
+
+.no__results{
+  text-align: center;
+}
 
 .movie__card {
   border: 1px solid black;
@@ -733,7 +737,7 @@ input[type="range"]:hover::-ms-thumb {
   vertical-align: -0.125em;
 }
 
-.building__wrapper{
+.cinema__wrapper{
   display: flex;
   align-items: center;
   position: relative;
@@ -741,17 +745,24 @@ input[type="range"]:hover::-ms-thumb {
 
 }
 
-.building{
+.cinema{
   
   /* position: absolute; */
   margin:0 auto;
-  margin-top:6em;
-     max-width: -webkit-max-content;
-    max-width: -moz-max-content;
-    max-width: max-content;
-    /* bottom:80px; */
-    height: 50vh;
+  margin-top:10em;
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
+  /* bottom:80px; */
+  height: 30vh;
 
+}
+
+.reel {
+  width:50px;
+  height:50px;
+  transform: translateY(-10px);
+  animation: rotate 1000ms infinite linear;
 }
 
 
@@ -1139,7 +1150,7 @@ select {
 
 /*TABLETS LARGE PHONES*/
 @media (max-width: 800px) {
-  .building{
+  .cinema{
     height: 40vh;
   }
 
