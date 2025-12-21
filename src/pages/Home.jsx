@@ -19,7 +19,7 @@ const Home = () => {
   const [sortedMovies, setSortedMovies] = useState([]);
   const {search} = useParams();
   const navigate = useNavigate();  
-
+  const [sortOption, setSortOption] = useState("default");
 
   function searchChange(evparam) {
     console.log('Search Change', evparam.target.value)
@@ -32,26 +32,47 @@ const Home = () => {
     
   }
 
-  function sortChange(ev, currentMovies) {
-    const sortedList = [...currentMovies];
 
-    console.log(ev.target.value);
+function sortChange(ev) {
     const sortedOption = ev.target.value;
+    const sortedList = [...movies]; // Create a copy of the original list
 
-    sortedList.sort((a, z) =>
-      sortedOption === "newest"
-        ? parseInt(z.Year) - parseInt(a.Year)
-        : sortedOption === "oldest"
-        ? parseInt(a.Year) - parseInt(z.Year)
-        : 0
-    );
+    // Sort based on the selected option
+    if (sortedOption === "newest") {
+      sortedList.sort((a, z) => parseInt(z.Year) - parseInt(a.Year));
+    } else if (sortedOption === "oldest") {
+      sortedList.sort((a, z) => parseInt(a.Year) - parseInt(z.Year));
+    }
+
     setSortedMovies(sortedList);
-
-  
   }
 
+    const resetSorting = () => {
+    // setSortedMovies([...movies]); // Reset the movie list to the original
+    setSortOption("default"); // Reset the select option to default
+  };
+
+
+  // function sortChange(ev, currentMovies) {
+  //   const sortedList = [...currentMovies];
+
+  //   console.log(ev.target.value);
+  //   const sortedOption = ev.target.value;
+
+  //   sortedList.sort((a, z) =>
+  //     sortedOption === "newest"
+  //       ? parseInt(z.Year) - parseInt(a.Year)
+  //       : sortedOption === "oldest"
+  //       ? parseInt(a.Year) - parseInt(z.Year)
+  //       : 0
+  //   );
+  //   setSortedMovies(sortedList);
+
+  
+  // }
+
   useEffect(()=> {
-    
+    setSortedMovies([])
     console.log(movies, typeof movies)
     if((!movies || movies.length === 0) && search) { // Fetch only if movies are not already loaded and search exists
       setLoading(true);
@@ -133,6 +154,7 @@ const Home = () => {
             <select
               name="movieSort"
               id="movieSort"
+              value={sortOption}
               onChange={(ev) => sortChange(ev, movies)}
             >
               <option value="default" selected disabled>
