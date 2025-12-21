@@ -7,22 +7,18 @@ import Navbar from "../components/Navbar";
 import Search from "../components/Search";
 import Content from "../components/Content";
 import Card from "../components/Card";
-import Slider from "../components/ui/Slider";
+import SliderComponent from "../components/ui/SliderComponent";
 
 
 
 
 
 const Home = () => {
-      const {movies, keyword, setKeyword, loading, setLoading, getMovies } = useContext(MoviesContext);
+      const {movies, keyword, setKeyword, loading, setLoading, setMovies, getMovies } = useContext(MoviesContext);
 
-  //const [movies, setMovies] = useState([]);
-  const navigate = useNavigate();
-  //const [loading, setLoading] = useState(true);
-  
   const [sortedMovies, setSortedMovies] = useState([]);
   const {search} = useParams();
-  
+  const navigate = useNavigate();  
 
 
   function searchChange(evparam) {
@@ -60,14 +56,19 @@ const Home = () => {
       setLoading(true);
       console.log("home 60", search)
       getMovies(`s=${search}`);
-      
     }
-  
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000);
+
+    setTimeout(() => {
+ 
+      setLoading(false);
+    }, 2000);
+
     
-  }, [loading, setLoading, search, movies, getMovies])
+
+
+  }, [loading, setLoading, search, movies, setMovies , getMovies])
+
+
 
   return (
     <>
@@ -91,8 +92,8 @@ const Home = () => {
             
           </div>
           <div className="filter__container">
-            <Slider></Slider>
-            {/* <div className="values">
+            
+            <div className="values">
               <h2 className="price__range">
                 <span className="price__range--title"> Year Range : </span>
                 <span id="range1">1900 to </span>
@@ -121,7 +122,7 @@ const Home = () => {
             <div className="display__range">
               <span id="range1">1900</span>
               <span id="range2">2025</span>
-            </div> */}
+            </div>
 
             <select
               name="movieSort"

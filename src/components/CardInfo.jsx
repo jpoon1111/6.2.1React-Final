@@ -49,16 +49,16 @@ const CardInfo = () => {
         
           const response = await axios.get(`https://www.omdbapi.com/?apikey=da55dd74&i=${paramId}`);
           
-          //   if (id === paramId){              
-          //       setCurrentMovie(response.data); // Successfully set the movie data
+            // if (id === paramId){              
+            //     setCurrentMovie(response.data); // Successfully set the movie data
 
-          //   }
+            // }
 
           // else if (id !== paramId) {
           //   return response.data;
           // }
           if (response.data.Response === "True"){
-            return response.data;
+            setCurrentMovie(response.data)
           }
           else if (response.data.Response === "False") {
               console.error("Movie not found:", response.data.Error);
@@ -71,31 +71,31 @@ const CardInfo = () => {
         }
     }
 
-    const fetchDetailedMovies = async (paramMovies)=>{
-      console.log("fetchDetailedMovies", paramMovies);
-      const detailedMoviesData = [];// this array will hold movie data
-      for (const movie of paramMovies){
-        console.log('69 -', movie.imdbID);
-        console.log("70 -", (await getMovieId(`${movie.imdbID}`)))
-        const detailedMovie = await getMovieId(`${movie.imdbID}`);// await for each promise
+    // const fetchDetailedMovies = async (paramMovies)=>{
+    //   console.log("fetchDetailedMovies", paramMovies);
+    //   const detailedMoviesData = [];// this array will hold movie data
+    //   for (const movie of paramMovies){
+    //     console.log('69 -', movie.imdbID);
+    //     console.log("70 -", (await getMovieId(`${movie.imdbID}`)))
+    //     const detailedMovie = await getMovieId(`${movie.imdbID}`);// await for each promise
         
-        console.log( "72 ", detailedMovie, !!detailedMovie);
-        if(detailedMovie){
-          console.log( "73 ", detailedMovie);
-            if (id === detailedMovie.imdbID){   
-              console.log('86 current movie',detailedMovie )           
-              setCurrentMovie(detailedMovie); // Successfully set the movie data
+    //     console.log( "72 ", detailedMovie, !!detailedMovie);
+    //     if(detailedMovie){
+    //       console.log( "73 ", detailedMovie);
+    //         if (id === detailedMovie.imdbID){   
+    //           console.log('86 current movie',detailedMovie )           
+    //           setCurrentMovie(detailedMovie); // Successfully set the movie data
 
-            }
-          detailedMoviesData.push(detailedMovie);//add to the array if it is true or not null/false
-        }
-        console.log('83', detailedMoviesData, typeof detailedMoviesData);
-      }
+    //         }
+    //       detailedMoviesData.push(detailedMovie);//add to the array if it is true or not null/false
+    //     }
+    //     console.log('83', detailedMoviesData, typeof detailedMoviesData);
+    //   }
 
        
-      setDetailedMovies(detailedMoviesData);
+    //   setDetailedMovies(detailedMoviesData);
       
-    }
+    // }
   
 
   
@@ -110,19 +110,15 @@ const CardInfo = () => {
       
     }
 
+
+    getMovieId(id);
     
     
     setLoading(false);
     
   },[id, search]);
   
-  useEffect(()=>{
-          
-         fetchDetailedMovies(movies)
 
-        
-    
-  },[movies]);
   
   
   //const movie = movies.find((movie)=>(movie.imdbID === id))
@@ -174,7 +170,7 @@ const CardInfo = () => {
 
   return (
     <>
-    {(detailedMovies.length > 0) ?
+    {(currentMovie) ?
       <>
       <div className="page__header">
         <Navbar cardinfo />
@@ -184,11 +180,11 @@ const CardInfo = () => {
           <div className="movies__container">
             <div className="movies__wrapper">
               <div className="movie__selected--top">
-                <Link to="/home" className="movie__link">
+                <Link to={`/home/${search}`} className="movie__link">
                   <FontAwesomeIcon icon="arrow-left" />
                 </Link>
-                <Link to="/home" className="movie__link">
-                {console.log(search)}
+                <Link to={`/home/${search}`} className="movie__link">
+                {console.log('187', search, id)}
                   <h2 className="movie__selected--title--top">Movies</h2>
                 </Link>
               </div>
@@ -237,12 +233,12 @@ const CardInfo = () => {
                 <h2 className="movie__selected--title--top">Recommended Movies</h2>
               </div>
               <div className="movies">
-                {console.log('225', detailedMovies, typeof detailedMovies)}
+                {console.log('225', movies, typeof movies)}
                 { 
-                detailedMovies.filter((movie) => 
+                movies.filter((movie) => 
                   movie.imdbID !== id)
                   .slice(0, 4)
-                  .map((movie, index) => <Movie  movie={movie} key={index} index={index} title={title} convertToDate={convertToDate} convertToHrAndMin={convertToHrAndMin}></Movie> )
+                  .map((movie, index) => <Movie  search={search} movie={movie} key={index} index={index} title={title} convertToDate={convertToDate} convertToHrAndMin={convertToHrAndMin} getMovieId={getMovieId}></Movie> )
                   
               }
               </div>

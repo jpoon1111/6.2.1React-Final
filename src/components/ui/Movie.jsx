@@ -5,7 +5,7 @@ import Rating from "./Rating";
 import Price from "./Revnue";
 
 
-const Movie = ({ movie, title, convertToDate, convertToHrAndMin }) => {
+const Movie = ({search, movie, title, convertToDate, convertToHrAndMin, getMovieId}) => {
   
 
 
@@ -15,6 +15,7 @@ const Movie = ({ movie, title, convertToDate, convertToHrAndMin }) => {
 
 
   useEffect(() => {
+    setImg();
     const image = new Image();
     image.src = movie.Poster;
     image.onload = () =>{
@@ -31,7 +32,7 @@ const Movie = ({ movie, title, convertToDate, convertToHrAndMin }) => {
     }
 
 
-  }, [])
+  }, [movie])
 
   return (
 
@@ -41,25 +42,16 @@ const Movie = ({ movie, title, convertToDate, convertToHrAndMin }) => {
     {
       img ? 
       <>
-        <Link to={`/home/${movie.imdbID}`}>
+        <Link to={`/home/${search}/${movie.imdbID}`} onClick={()=>getMovieId( movie.imdbID)}>
           <figure className="movie__img--wrapper">
             <img src={img.src} alt="" className="movie__img"/>
           </figure>
         </Link>
         <div className="movie__title">
-          <Link to={`/home/${movie.imdbID}`} className="movie__title--link">
+          <Link to={`/home/${search}/${movie.imdbID}`} onClick={()=>getMovieId(movie.imdbID)} className="movie__title--link">
               <div className="movie__selected--title">{movie.Title}</div>
-              
-              {console.log(movie.imdbRating)}
-              {/* <Rating rating={+movie.imdbRating} /> */}
-              {
-                movie.imdbRating? 
-                  <Rating rating={+movie.imdbRating}></Rating>
-                  :
-                  <></>
-              }
+
               <div className="movie__label">Type : <span>{movie.Type}</span></div> 
-              <div className="movie__label"> Duration : <span>{convertToHrAndMin(movie.Runtime? movie.Runtime : "N/A")}</span></div>
               <div className="movie__label">Released : <span>{movie.Year? movie.Year : "N/A"}</span></div>
             </Link>
         </div>

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 const Card = ({search, imdbID, poster, title, year, type}) => {
 
   const navigate = useNavigate();
-  console.log(imdbID)
+  //console.log(imdbID)
 
   return (
     <div 

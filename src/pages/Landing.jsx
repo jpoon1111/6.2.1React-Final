@@ -8,9 +8,9 @@ import { useNavigate } from 'react-router-dom';
 import { MoviesContext } from '../App';
 
 const Landing = () => {
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const {movies, keyword, setKeyword, loading, setLoading, getMovies } = useContext(MoviesContext);
+  const {movies, keyword, setKeyword, loading, setLoading, getMovies } = useContext(MoviesContext);
 
   
 
@@ -20,16 +20,16 @@ const {movies, keyword, setKeyword, loading, setLoading, getMovies } = useContex
   }, [keyword])
 
 
-function searchChangeLanding(evparam) {
-  const valueHolder = evparam.target.value
-  console.log(valueHolder)
+  function searchChangeLanding(evparam) {
+    const valueHolder = evparam.target.value
+    console.log(valueHolder)
 
-    navigate(`/home/${keyword}`)
-  //   //(evparam.key === "Enter") ? navigate(`/home/${valueHolder}`) : navigate(`/}`) 
-    
-    setKeyword(valueHolder)
-    getMovies(`s=${valueHolder}`)
-    setLoading(true)
+      navigate(`/home/${keyword}`)
+    //   //(evparam.key === "Enter") ? navigate(`/home/${valueHolder}`) : navigate(`/}`) 
+      
+      setKeyword(valueHolder)
+      getMovies(`s=${valueHolder}`)
+      setLoading(true)
     navigate(`/home/${valueHolder}`)
     
   }
