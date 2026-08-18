@@ -167,7 +167,7 @@ function sortChange(ev) {
           
         </div>
 
-        <div id="movies" className="cards">          
+        <div id="movies">          
           {loading ? (
             <div className="loading-state">
               <img src={Movie_Reel} alt="movie reel" className="reel"></img>
@@ -206,19 +206,20 @@ function sortChange(ev) {
             ))
           )
           :
-          (
-            movies.map((movie, index) => (
-              <Card
-                key={index}
-                search={search}
-                imdbID={movie.imdbID}
-                poster={movie.Poster}
-                title={movie.Title}
-                year={movie.Year}
-                type={movie.Type}
-              />
-            ))
-          )
+          (<div  className="cards">
+            {movies.map((movie, index) => (
+                <Card
+                  key={index}
+                  search={search}
+                  imdbID={movie.imdbID}
+                  poster={movie.Poster}
+                  title={movie.Title}
+                  year={movie.Year}
+                  type={movie.Type}
+                />
+              ))
+            }
+          </div>)
           }
         </div>
       </section>

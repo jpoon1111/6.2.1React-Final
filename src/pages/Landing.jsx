@@ -43,17 +43,22 @@ const Landing = () => {
 
   return (
     <div>
-      <header>
+      <header className='landing'>
         <Navbar landing />
- 
-        <Search landing keyword={keyword} setKeyword={setKeyword} searchChangeLanding={searchChangeLanding} />    
+
+        <div className="hero__content">
+          <Search landing keyword={keyword} setKeyword={setKeyword} searchChangeLanding={searchChangeLanding} />    
+        </div>    
+        <div className="overlay"></div>
 
       </header>
+
       <div className='cinema__wrapper'>
          
         <img src={Movie_Countdown} alt="countdown" className="cinema"></img>
 
       </div>
+
 
     </div>
   )
