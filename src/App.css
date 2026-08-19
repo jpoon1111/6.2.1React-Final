@@ -27,7 +27,7 @@ header {
   position: relative;
   height: 326px;
   width: 100%;
-  padding: 2em;
+  padding: 2em 0;
 }
 
 
@@ -698,15 +698,19 @@ input[type="range"]:hover::-ms-thumb {
 /*
   LANDING PAGENAVIGATION 
 */
-.landing {
+/* .landing {
   padding: 1em;
   padding-top: 1em;
-}
+} */
 
 header.landing {
   height: 100vh;
   min-height: 600px;
 }
+
+/* header.home{
+  overflow-x: hidden;
+} */
 
 .landing .search__bar--wrapper {
     justify-content: center;

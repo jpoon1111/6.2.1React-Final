@@ -97,7 +97,7 @@ function sortChange(ev) {
 
   return (
     <>
-      <header>
+      <header className="home">
         <Navbar />
         <Search searchChange={searchChange} keyword={keyword} />
 
@@ -194,19 +194,21 @@ function sortChange(ev) {
           ) : !movies || (movies.length === 0 && loading === false) ? (
              <div className="no__results">No Result </div>
           ) : sortedMovies.length !== 0 ? (
-            sortedMovies.map((movie, index) => (
-              <Card
-                key={index}
-                imdbID={movie.imdbID}
-                poster={movie.Poster}
-                title={movie.Title}
-                year={movie.Year}
-                type={movie.Type}
-              />
-            ))
-          )
-          :
-          (<div  className="cards">
+            <div className="cards">
+              {sortedMovies.map((movie, index) => (
+                <Card
+                  key={index}
+                  imdbID={movie.imdbID}
+                  poster={movie.Poster}
+                  title={movie.Title}
+                  year={movie.Year}
+                  type={movie.Type}
+                />
+              ))
+              }
+            </div>
+          ):(
+            <div  className="cards">
             {movies.map((movie, index) => (
                 <Card
                   key={index}
