@@ -22,6 +22,8 @@ const Home = () => {
   const {search} = useParams();
   const navigate = useNavigate();  
   const [sortOption, setSortOption] = useState("default");
+  const [minYear, setMinYear] = useState(1900);
+  const [maxYear, setMaxYear] = useState(2025);
 
   function searchChange(evparam) {
     console.log('Search Change', evparam.target.value)
@@ -46,6 +48,7 @@ function sortChange(ev) {
       sortedList.sort((a, z) => parseInt(a.Year) - parseInt(z.Year));
     }
 
+    setSortOption(sortedOption);
     setSortedMovies(sortedList);
   }
 
@@ -73,6 +76,27 @@ function sortChange(ev) {
   
   // }
 
+
+  const handleMinYearChange = (e) => {
+    const newMin = Number(e.target.value);
+    if (newMin >= maxYear - 9) { 
+      setMinYear(maxYear - 10);// Don't let min go higher than (max - 1)
+    } else {
+      setMinYear(newMin);
+    }
+  };
+
+  const handleMaxYearChange = (e) => {
+    const newMax = Number(e.target.value);
+    if (newMax <= minYear + 9) {//if the new max is less than or equal to the current min, set max to min + 1
+      setMaxYear(minYear + 10); // Don't let min go higher than (max - 1)
+    }else{
+      setMaxYear(newMax);
+    }
+  };
+  
+
+
   useEffect(()=> {
     setSortedMovies([])
     console.log(movies, typeof movies)
@@ -94,6 +118,12 @@ function sortChange(ev) {
   }, [loading, setLoading, search, movies, setMovies , getMovies])
 
 
+  const baseList = sortedMovies.length !== 0 ? sortedMovies : movies;// Use sortedMovies if available, otherwise use the original movies list
+
+  const filteredMovies = baseList ? baseList.filter((movie) => {
+    const year = parseInt(movie.Year);
+    return year >= minYear && year <= maxYear;// Filter movies if their year is within the selected range(geater than minYear and less than maxYear)
+  }) : [];
 
   return (
     <>
@@ -130,23 +160,23 @@ function sortChange(ev) {
               <input
                 type="range"
                 id="slider-1"
-                onInput="slideOne()"
                 min="1900"
                 max="2025"
-                value="1980"
+                value={minYear}
+                onChange={handleMinYearChange}
               />
               <input
                 type="range"
                 id="slider-2"
-                onInput="slideTwo()"
                 min="1900"
                 max="2025"
-                value="2023"
+                value={maxYear}
+                onChange={handleMaxYearChange}
               />
             </div>
             <div className="display__range">
-              <span id="range1">1900</span>
-              <span id="range2">2025</span>
+              <span id="range1">{minYear}</span>
+              <span id="range2">{maxYear}</span>
             </div>
 
             <select
@@ -193,9 +223,11 @@ function sortChange(ev) {
             </div>
           ) : !movies || (movies.length === 0 && loading === false) ? (
              <div className="no__results">No Result </div>
-          ) : sortedMovies.length !== 0 ? (
+          ) : filteredMovies.length === 0 ? (
+              <div className="no__results">No Result </div> 
+          ): (
             <div className="cards">
-              {sortedMovies.map((movie, index) => (
+              {filteredMovies.map((movie, index) => (
                 <Card
                   key={index}
                   imdbID={movie.imdbID}
@@ -207,22 +239,7 @@ function sortChange(ev) {
               ))
               }
             </div>
-          ):(
-            <div  className="cards">
-            {movies.map((movie, index) => (
-                <Card
-                  key={index}
-                  search={search}
-                  imdbID={movie.imdbID}
-                  poster={movie.Poster}
-                  title={movie.Title}
-                  year={movie.Year}
-                  type={movie.Type}
-                />
-              ))
-            }
-          </div>)
-          }
+          )}
         </div>
       </section>
     </>

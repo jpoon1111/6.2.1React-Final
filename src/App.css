@@ -41,6 +41,9 @@ nav {
   max-width: 1200px;
   z-index: 3;
 }
+header nav {
+  padding:1em;
+}
 
 a {
   text-decoration: none;
