@@ -1231,6 +1231,13 @@ select {
   .cinema{
     height: 40vh;
   }
+  .landing .search__title {
+    font-size: 2.0em;
+  }
+  .landing .search__sub-title {
+    font-size: 1em;
+    
+  }
 
 }
 
@@ -1260,6 +1267,13 @@ select {
   header {
     padding: 1em;
     height: 270px;
+  }
+    .landing .search__title {
+    font-size: 1.2em;
+  }
+  .landing .search__sub-title {
+    font-size: 1em;
+    
   }
   .logo__img {
     height: 36px;
