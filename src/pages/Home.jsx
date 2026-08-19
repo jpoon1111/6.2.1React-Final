@@ -101,6 +101,9 @@ function sortChange(ev) {
     setSortedMovies([])
     console.log(movies, typeof movies)
 
+    setMinYear(1980);   // reset min range on new search
+    setMaxYear(2023);   // reset max range on new search
+
 
     setTimeout(() => {
       setLoading(false);      
