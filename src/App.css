@@ -30,29 +30,6 @@ header {
   padding: 2em;
 }
 
-header.landing {
-  height: 85vh;
-  min-height: 600px;
-  /*display: flex;*/
-  flex-direction: column;
-  justify-content: center;
-  padding: 2em;
-}
-
-
-.hero__content {
-  position: relative;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto;
-  gap: 20px;
-}
-
 
 nav {
   position: relative;
@@ -256,8 +233,9 @@ button {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.5); /* was 0.7 */
 }
+
 /* 
 
     /* border: 1px solid #6030b1;
@@ -664,6 +642,7 @@ input[type="range"]:hover::-ms-thumb {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive columns, consistent widths */
   grid-gap: 24px; /* Space between grid items */
   padding: 24px; /* Padding around the grid */
+  overflow: hidden; /* Hide overflow */
 }
 
 .no__results{
@@ -719,20 +698,37 @@ input[type="range"]:hover::-ms-thumb {
 /*
   LANDING PAGENAVIGATION 
 */
+.landing {
+  padding: 0em;
+  padding-top: 1em;
+}
+
+header.landing {
+  height: 100vh;
+  min-height: 600px;
+}
+
+.landing .search__bar--wrapper {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
 .landing .nav__links a {
   color: #5EE0FA;
 }
 
-.landing .nav__links a:first-child {
+/* .landing .nav__links a:first-child {
   color: #0a1f44;
-}
+} */
 
 .landing .nav__links a:after {
   background-color: #5EE0FA;
 }
-.landing .nav__links a:first-child::after {
+/* .landing .nav__links a:first-child::after {
   background-color: #0a1f44;
-}
+} */
 
 .landing .nav__button {
   background-color: #5EE0FA;
@@ -746,10 +742,10 @@ input[type="range"]:hover::-ms-thumb {
   color: #5EE0FA;
   max-width: 730px;
   font-weight: 700;
-  margin: 30px auto;
+  /* margin: 30px auto; */
 }
 .landing .search__sub-title {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 700;
   line-height: 1.5;
   text-align: center;
@@ -822,14 +818,15 @@ input[type="range"]:hover::-ms-thumb {
 .cinema{
   
   /* position: absolute; */
+
   margin:0 auto;
-  margin-top:10em;
+  margin-top:20em;
   max-width: -webkit-max-content;
   max-width: -moz-max-content;
   max-width: max-content;
-  /* bottom:80px; */
   height: 30vh;
 
+  /* bottom:80px; */
 }
 
 .reel {
