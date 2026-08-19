@@ -22,8 +22,8 @@ const Home = () => {
   const {search} = useParams();
   const navigate = useNavigate();  
   const [sortOption, setSortOption] = useState("default");
-  const [minYear, setMinYear] = useState(1900);
-  const [maxYear, setMaxYear] = useState(2025);
+  const [minYear, setMinYear] = useState(1980);
+  const [maxYear, setMaxYear] = useState(2023);
 
   function searchChange(evparam) {
     console.log('Search Change', evparam.target.value)
