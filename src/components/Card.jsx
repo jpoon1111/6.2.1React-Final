@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import no_img from '../assets/backup__img/No_Image_Available.jpg'
+import no_img from '../assets/backup__img/no_image_available.jpg'
 
 //https://www.omdbapi.com/?apikey=da55dd74&i=tt0232500
 
