@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import {MoviesContext} from '../App';
 
 import {useNavigate, useParams } from "react-router-dom";
+import { useRef } from "react";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import Search from "../components/Search";
@@ -12,28 +13,54 @@ import Movie_Reel from '../assets/movie__reel.svg'
 
 
 
-
-
-
 const Home = () => {
-      const {movies, keyword, setKeyword, loading, setLoading, setMovies, getMovies } = useContext(MoviesContext);
+  const {movies, keyword, setKeyword, loading, setLoading, 
+    setMovies, getMovies,
+    sortedMovies, setSortedMovies,
+    sortOption, setSortOption,
+    minYear, setMinYear,
+    maxYear, setMaxYear,
+    getMultipleMovies
+  } = useContext(MoviesContext);
 
-  const [sortedMovies, setSortedMovies] = useState([]);
+  
+  
   const {search} = useParams();
   const navigate = useNavigate();  
-  const [sortOption, setSortOption] = useState("default");
-  const [minYear, setMinYear] = useState(1980);
-  const [maxYear, setMaxYear] = useState(2023);
+
+  const prevSearchRef = useRef(search);
+
+const performSearch = (searchValue) => {
+  // Check if the search value contains a "+" (used for multi-term searches)
+  if (searchValue.includes("+")) {
+    const terms = searchValue
+      .split("+")                    // Split string into array: "a+b+c" → ["a", "b", "c"]
+      .map((term) => term.trim())    // Remove leading/trailing whitespace from each term
+      .filter((term) => term.length > 0); // Remove any empty strings (e.g., from "a++b")
+    
+    // after all the filtering and trimming, if there are no valid search terms, we can return early to avoid making an unnecessary API call.
+    if (terms.length === 0) {
+      setLoading(false);
+      return;
+    } else {
+      getMultipleMovies(terms);
+    }
+  } else {
+    getMovies(`s=${searchValue}`);
+  }
+};
+
+
 
   function searchChange(evparam) {
-    console.log('Search Change', evparam.target.value)
+    const value= evparam.target.value;
+    console.log('Search Change', value)
 
-    setKeyword(evparam.target.value);
-
+    setKeyword(value);
     setLoading(true);
-    navigate(`/home/${evparam.target.value}`)
-    getMovies(evparam.target.value);
-    
+    navigate(`/home/${value}`);
+
+    performSearch(value);
   }
 
 
@@ -96,27 +123,28 @@ function sortChange(ev) {
   };
   
 
-
   useEffect(()=> {
-    setSortedMovies([])
+
+    if (prevSearchRef.current !== search) {
+      setMinYear(1980);   // reset min range on new search
+      setMaxYear(2023);   // reset max range on new search
+      setSortedMovies([]);
+      setSortOption("default");
+      prevSearchRef.current = search;
+    }
     console.log(movies, typeof movies)
 
-    setMinYear(1980);   // reset min range on new search
-    setMaxYear(2023);   // reset max range on new search
 
 
     setTimeout(() => {
       setLoading(false);      
     }, 2000);
+    
     if((!movies || movies.length === 0) && search) { // Fetch only if movies are not already loaded and search exists
       setLoading(true);
-     
-      getMovies(`s=${search}`);
+
+      performSearch(search);
     }
-
-
-    
-
 
   }, [loading, setLoading, search, movies, setMovies , getMovies])
 
@@ -238,6 +266,7 @@ function sortChange(ev) {
                   title={movie.Title}
                   year={movie.Year}
                   type={movie.Type}
+                  search={search}
                 />
               ))
               }
